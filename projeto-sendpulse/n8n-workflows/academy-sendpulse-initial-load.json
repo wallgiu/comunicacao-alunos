@@ -1,0 +1,101 @@
+{
+  "name": "academy-sendpulse-initial-load",
+  "active": true,
+  "nodes": [
+    {
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "parameters": {}
+    },
+    {
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 200],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "initial-load-sendpulse",
+        "options": {}
+      }
+    },
+    {
+      "id": "fetch-active",
+      "name": "Fetch Active Buyers (RPC)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [240, 0],
+      "parameters": {
+        "method": "POST",
+        "url": "https://nvqlfhcojmcxzmkpytnw.supabase.co/rest/v1/rpc/get_sendpulse_all_active_json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{}",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": { "name": "supabase-data-analytics-brain-anon" }
+      }
+    },
+    {
+      "id": "group-chunk",
+      "name": "Group & Chunk (100)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 0],
+      "parameters": {
+        "jsCode": "// Group buyers by active_list_id and chunk into payloads of 100\n// Includes name, phone, data_ultima_compra, vigencia_expira_em\nconst rawItems = $input.all();\nlet rows = [];\nif (Array.isArray(rawItems[0]?.json)) {\n  rows = rawItems[0].json;\n} else {\n  rows = rawItems.map(i => i.json);\n}\n\nconst groups = {};\nfor (const r of rows) {\n  if (!r.active_list_id || !r.email) continue;\n  const listId = String(r.active_list_id);\n  if (!groups[listId]) groups[listId] = [];\n  const vars = { name: r.name || '' };\n  if (r.phone) vars.phone = r.phone;\n  if (r.data_ultima_compra) vars.data_ultima_compra = r.data_ultima_compra;\n  if (r.vigencia_expira_em) vars.vigencia_expira_em = r.vigencia_expira_em;\n  groups[listId].push({ email: r.email, variables: vars });\n}\n\nconst output = [];\nconst size = 100;\nfor (const [listId, emails] of Object.entries(groups)) {\n  for (let i = 0; i < emails.length; i += size) {\n    output.push({\n      json: {\n        list_id: listId,\n        chunk_index: Math.floor(i / size),\n        total_chunks: Math.ceil(emails.length / size),\n        emails_count: Math.min(size, emails.length - i),\n        emails_payload: JSON.stringify({ emails: emails.slice(i, i + size) })\n      }\n    });\n  }\n}\n\nreturn output;"
+      }
+    },
+    {
+      "id": "post-sendpulse",
+      "name": "POST SendPulse",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 0],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.sendpulse.com/addressbooks/{{ $json.list_id }}/emails",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "sendPulseApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.emails_payload }}",
+        "options": {
+          "batching": { "batch": { "batchSize": 3, "batchInterval": 1000 } },
+          "retry": { "retryOnFail": true, "maxTries": 3, "waitBetweenTries": 2000 }
+        }
+      },
+      "credentials": {
+        "sendPulseApi": { "name": "sendpulse-api-agenda" },
+        "sendPulseOAuth2Api": { "name": "sendpulse-oauth2-account-giulia" }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Fetch Active Buyers (RPC)", "type": "main", "index": 0 }]] },
+    "Webhook Trigger": { "main": [[{ "node": "Fetch Active Buyers (RPC)", "type": "main", "index": 0 }]] },
+    "Fetch Active Buyers (RPC)": { "main": [[{ "node": "Group & Chunk (100)", "type": "main", "index": 0 }]] },
+    "Group & Chunk (100)": { "main": [[{ "node": "POST SendPulse", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}

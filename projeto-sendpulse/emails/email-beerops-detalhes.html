@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<title>BeerOps — DAB end-to-end no Databricks Free Edition</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #0C0C0C; font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+
+<!-- Pre-header (oculto no email, aparece como preview na caixa de entrada e impede o Gmail de comprimir conteudo) -->
+<div style="display: none; max-height: 0; max-width: 0; overflow: hidden; mso-hide: all; font-size: 1px; color: #0C0C0C; line-height: 1px;">
+  Daqui a 7 dias o BeerOps acontece. DAB end-to-end no Databricks. Quatro blocos progressivos, do dev ao prod, sem chope requentado.
+  &#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;
+</div>
+
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #0C0C0C;">
+  <tr>
+    <td align="center" style="padding: 40px 20px;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="max-width: 600px; background-color: #0C0C0C;">
+
+        <!-- Header -->
+        <tr>
+          <td style="padding: 0 0 24px 0; border-bottom: 1px solid #1F1F1F;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
+              Engenharia de Dados Academy
+            </p>
+            <p style="margin: 6px 0 0 0; font-family: 'Urbanist', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">
+              <span style="background: linear-gradient(to right, #FFB000, #E25A1C, #FF3621, #C41E0F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #E25A1C; font-weight: 700;">
+                Formação Spark &amp; Databricks
+              </span>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Hook -->
+        <tr>
+          <td style="padding: 40px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em;">
+              E aí, {{name}}! 🙌🏿
+            </p>
+            <p style="margin: 20px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 17px; line-height: 1.55;">
+              Daqui a <strong style="color: #FFB000; font-weight: 700;">7 dias</strong> a gente tem:
+            </p>
+          </td>
+        </tr>
+
+        <!-- Event hero card -->
+        <tr>
+          <td style="padding: 24px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #141414; border-radius: 12px; overflow: hidden;">
+              <tr>
+                <td style="height: 4px; background: linear-gradient(to right, #FFB000, #E25A1C, #FF3621); line-height: 4px; font-size: 0;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="padding: 30px 28px 28px;">
+                  <p style="margin: 0; color: #FFB000; font-family: 'Urbanist', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+                    Sábado · 09/05
+                  </p>
+                  <p style="margin: 14px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em;">
+                    🍺 BeerOps
+                  </p>
+                  <p style="margin: 10px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 18px; font-weight: 600; line-height: 1.4;">
+                    DAB com colarinho na medida
+                  </p>
+                  <p style="margin: 6px 0 0 0; color: #B0B0B0; font-family: 'Urbanist', sans-serif; font-size: 15px; font-style: italic; line-height: 1.5;">
+                    Do dev ao prod, sem chope requentado.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Pitch -->
+        <tr>
+          <td style="padding: 36px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 18px; font-weight: 700; line-height: 1.4;">
+              Bora falar a real sobre o dia a dia de quem trabalha com dados?
+            </p>
+            <p style="margin: 18px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+              No seu trabalho hoje: <strong style="color: #FFFFFF; font-weight: 700;">pipeline mora num lugar.</strong> App FastAPI <strong style="color: #FFFFFF; font-weight: 700;">noutro.</strong> CI/CD <strong style="color: #FFFFFF; font-weight: 700;">num terceiro.</strong>
+            </p>
+            <p style="margin: 16px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+              Se você tá nesse cenário — e a maioria tá — você tá jogando um jogo que <span style="background: linear-gradient(to right, #FF3621, #C41E0F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #FF3621; font-weight: 700;">ninguém precisa mais jogar.</span> 😤
+            </p>
+            <p style="margin: 18px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+              O BeerOps ataca exatamente isso: <strong style="color: #FFB000; font-weight: 700;">quatro blocos progressivos</strong> no Databricks Free Edition, usando o <strong style="color: #FFB000; font-weight: 700;">DAB — Declarative Automation Bundle</strong> (renomeado pela Databricks em março/2026, o que antes era DABS).
+            </p>
+          </td>
+        </tr>
+
+        <!-- Section title: blocks -->
+        <tr>
+          <td style="padding: 44px 0 0 0;">
+            <p style="margin: 0; color: #FFB000; font-family: 'Urbanist', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+              🔨 O que você constrói
+            </p>
+            <p style="margin: 8px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 22px; font-weight: 800; line-height: 1.3; letter-spacing: -0.01em;">
+              Bloco a bloco
+            </p>
+          </td>
+        </tr>
+
+        <!-- Block 00 -->
+        <tr>
+          <td style="padding: 22px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #141414; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #FFB000; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">00</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Introdução</p>
+                  <p style="margin: 6px 0 0 0; color: #D0D0D0; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    Por que DAB. Zero código. O fundamento que faz o resto não virar barulho.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Block 01 -->
+        <tr>
+          <td style="padding: 12px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #141414; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #E25A1C; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">01</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Bundle Dummy</p>
+                  <p style="margin: 6px 0 0 0; color: #D0D0D0; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    DAB mínimo com pipeline Lakeflow e tabela Gold. Ciclo <strong style="color: #FFFFFF;">validate → deploy → run</strong> e o papel do <code style="background: #0C0C0C; padding: 2px 6px; border-radius: 3px; font-family: ui-monospace, monospace; font-size: 13px; color: #FFB000;">databricks.yml</code>.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Block 02 -->
+        <tr>
+          <td style="padding: 12px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #141414; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #FF3621; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">02</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Bootstrap da Plataforma</p>
+                  <p style="margin: 6px 0 0 0; color: #D0D0D0; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    O DAB provisiona o que um time real já herda pronto: <strong style="color: #FFFFFF;">app FastAPI, pipeline histórica, endpoint de serving MLflow, modelo registrado, schemas por target.</strong> Você publica o contrato que o Bloco 03 consome.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Block 03 -->
+        <tr>
+          <td style="padding: 12px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #141414; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #C41E0F; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">03</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Pipeline Operacional</p>
+                  <p style="margin: 6px 0 0 0; color: #D0D0D0; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    O trabalho real: <strong style="color: #FFFFFF;">Bronze → Silver → Gold</strong>, data quality com drop e warn, pré-requisitos validados antes do deploy, grants programáticos e gate de DQ reportando direto na PR.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Takeaway section -->
+        <tr>
+          <td style="padding: 44px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #141414; border-radius: 12px; overflow: hidden;">
+              <tr>
+                <td style="height: 4px; background: linear-gradient(to right, #FFB000, #E25A1C, #FF3621, #C41E0F); line-height: 4px; font-size: 0;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="padding: 28px 26px 26px;">
+                  <p style="margin: 0; color: #FFB000; font-family: 'Urbanist', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+                    🏠 O que você leva pra casa
+                  </p>
+                  <p style="margin: 16px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+                    Um padrão de projeto que trata <strong style="color: #FFB000; font-weight: 700;">pipeline, app, serving e esteira como um único artefato declarativo</strong> — não três silos colados na mão.
+                  </p>
+                  <p style="margin: 14px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+                    E a clareza de <strong style="color: #FF3621; font-weight: 700;">onde o Makefile termina e onde a CI começa.</strong> 💡
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Pré-requisito / warm up -->
+        <tr>
+          <td style="padding: 36px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.5;">
+              Sábado, 09/05.
+            </p>
+            <p style="margin: 12px 0 0 0; color: #D0D0D0; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+              Sugestão pra essa semana: <strong style="color: #FFFFFF; font-weight: 700;">revisa os módulos de pipeline e Lakeflow.</strong> Você vai querer chegar com o motor quente. 🔥
+            </p>
+          </td>
+        </tr>
+
+        <!-- CTA button -->
+        <tr>
+          <td align="center" style="padding: 36px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td style="background: linear-gradient(to right, #FFB000, #E25A1C, #FF3621, #C41E0F); border-radius: 999px;">
+                  <a href="{{plataforma_url}}" style="display: inline-block; padding: 16px 38px; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.5px; text-decoration: none; text-transform: uppercase;">
+                    Acessar a plataforma →
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Sign off -->
+        <tr>
+          <td style="padding: 40px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.55;">
+              Até lá! 🙌🏿
+            </p>
+            <p style="margin: 4px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.55; font-weight: 700;">
+              Time Engenharia de Dados Academy
+            </p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding: 48px 0 0 0; border-top: 1px solid #1F1F1F;">
+            <p style="margin: 24px 0 0 0; color: #707070; font-family: 'Urbanist', sans-serif; font-size: 11px; line-height: 1.6; text-align: center;">
+              Você recebeu este e-mail porque é aluno ou inscrito da Formação Spark &amp; Databricks.<br>
+              Engenharia de Dados Academy · São Paulo, BR<br>
+              <a href="{{unsubscribe_url}}" style="color: #707070; text-decoration: underline;">Descadastrar</a> · <a href="#" style="color: #707070; text-decoration: underline;">Política de privacidade</a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

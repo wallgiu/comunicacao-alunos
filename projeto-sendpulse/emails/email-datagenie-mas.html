@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<title>DataGenie MAS — Multi-Agent Supervisor sobre Databricks</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #0B1419; font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+
+<!-- Pre-header (oculto no email, aparece como preview na caixa de entrada) -->
+<div style="display: none; max-height: 0; max-width: 0; overflow: hidden; mso-hide: all; font-size: 1px; color: #0B1419; line-height: 1px;">
+  BeerOps fechou. Próximo: 16/05, DataGenie MAS. AI Engineering hands-on com Multi-Agent Supervisor sobre Databricks. 2x mais barato, 4x mais rápido.
+  &#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;
+</div>
+
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #0B1419;">
+  <tr>
+    <td align="center" style="padding: 40px 20px;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="max-width: 600px; background-color: #0B1419;">
+
+        <!-- Header -->
+        <tr>
+          <td style="padding: 0 0 24px 0; border-bottom: 1px solid #1B3139;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
+              Engenharia de Dados Academy
+            </p>
+            <p style="margin: 6px 0 0 0; font-family: 'Urbanist', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">
+              <span style="background: linear-gradient(to right, #FFA628, #FF6028, #FF3621, #E25A1C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #FF6028; font-weight: 700;">
+                Formação Spark &amp; Databricks
+              </span>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Hook -->
+        <tr>
+          <td style="padding: 40px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em;">
+              E aí, {{name}}! 🙌🏿
+            </p>
+            <p style="margin: 20px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 17px; line-height: 1.55;">
+              BeerOps fechou no sábado — e <strong style="color: #FFA628; font-weight: 700;">que sábado foi esse</strong>! 🍺🔥
+            </p>
+            <p style="margin: 14px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 17px; line-height: 1.55;">
+              Agora o foco vira pro <strong style="color: #FF3621; font-weight: 700;">16/05</strong>. E a gente tem um hot take pra compartilhar:
+            </p>
+          </td>
+        </tr>
+
+        <!-- Hot take card -->
+        <tr>
+          <td style="padding: 28px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 12px; overflow: hidden;">
+              <tr>
+                <td style="height: 4px; background: linear-gradient(to right, #FFA628, #FF6028, #FF3621, #E25A1C); line-height: 4px; font-size: 0;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="padding: 26px 26px 24px;">
+                  <p style="margin: 0; color: #FF3621; font-family: 'Urbanist', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+                    💡 Hot take
+                  </p>
+                  <p style="margin: 14px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 19px; font-weight: 700; line-height: 1.4;">
+                    A maior parte das soluções de "agente que responde pergunta sobre os dados" está <span style="background: linear-gradient(to right, #FF3621, #E25A1C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #FF3621;">queimando dinheiro à toa.</span>
+                  </p>
+                  <p style="margin: 14px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 15px; line-height: 1.6;">
+                    Mandam tudo pro LLM. Toda pergunta. Todo contexto. Toda vez. 😬
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Bridge -->
+        <tr>
+          <td style="padding: 32px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 19px; font-weight: 700; line-height: 1.4;">
+              O <span style="background: linear-gradient(to right, #FFA628, #FF3621); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #FF3621;">DataGenie MAS</span> parte de outro lugar.
+            </p>
+            <p style="margin: 18px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+              Workshop hands-on de <strong style="color: #FFA628; font-weight: 700;">AI Engineering</strong> com Multi-Agent Supervisor (OpenAI Agents SDK) rodando sobre Databricks. <strong style="color: #FFA628; font-weight: 700;">Seis fases progressivas.</strong> Um sistema único respondendo pergunta de negócio em linguagem natural — inclusive via WhatsApp — sobre <strong style="color: #FFFFFF; font-weight: 700;">Unity Catalog, Genie Spaces e Lakebase.</strong> 🤖
+            </p>
+          </td>
+        </tr>
+
+        <!-- Event hero card -->
+        <tr>
+          <td style="padding: 28px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 12px; overflow: hidden;">
+              <tr>
+                <td style="height: 4px; background: linear-gradient(to right, #FF3621, #E25A1C); line-height: 4px; font-size: 0;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="padding: 30px 28px 28px;">
+                  <p style="margin: 0; color: #FF3621; font-family: 'Urbanist', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+                    Sábado · 16/05
+                  </p>
+                  <p style="margin: 14px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em;">
+                    🤖 DataGenie MAS
+                  </p>
+                  <p style="margin: 10px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 18px; font-weight: 600; line-height: 1.4;">
+                    Multi-Agent Supervisor + Databricks
+                  </p>
+                  <p style="margin: 6px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 15px; font-style: italic; line-height: 1.5;">
+                    Do ticket de 5 dias à resposta em segundos.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Section title: phases -->
+        <tr>
+          <td style="padding: 44px 0 0 0;">
+            <p style="margin: 0; color: #FFA628; font-family: 'Urbanist', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+              🔨 O que você constrói
+            </p>
+            <p style="margin: 8px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 22px; font-weight: 800; line-height: 1.3; letter-spacing: -0.01em;">
+              Fase a fase
+            </p>
+          </td>
+        </tr>
+
+        <!-- Phase 1 -->
+        <tr>
+          <td style="padding: 22px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #FFA628; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">01</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">O Problema e a Visão</p>
+                  <p style="margin: 6px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    Por que dado moderno ainda chega tarde. <strong style="color: #FFFFFF;">Ticket → 2-5 dias</strong> vs. <strong style="color: #FFA628;">mensagem → segundos.</strong> O paradoxo de ter lake, warehouse e dashboard — e ainda não ter resposta quando o board pergunta.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Phase 2 -->
+        <tr>
+          <td style="padding: 12px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #FF6028; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">02</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Arquitetura e Fundação</p>
+                  <p style="margin: 6px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    Os <strong style="color: #FFFFFF;">8 serviços Databricks</strong> que sustentam o sistema. Unity Catalog como base semântica (por que <code style="background: #0B1419; padding: 2px 6px; border-radius: 3px; font-family: ui-monospace, monospace; font-size: 13px; color: #FFA628;">COMMENT</code> em coluna vale mais que documentação separada). Os 6 Genie Spaces e o maior diferencial econômico: <strong style="color: #FFA628;">NL→SQL sem custo de tokens.</strong>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Phase 3 — destaque (coração técnico) -->
+        <tr>
+          <td style="padding: 12px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 10px; overflow: hidden;">
+              <tr>
+                <td style="height: 3px; background: linear-gradient(to right, #FFA628, #FF3621); line-height: 3px; font-size: 0;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #FF3621; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">03</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Roteamento em 4 Camadas <span style="color: #FF3621; font-size: 13px;">— o coração técnico</span></p>
+                  <p style="margin: 6px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    <strong style="color: #FFFFFF;">ACL</strong> (0 tokens, &lt;1ms) → <strong style="color: #FFFFFF;">Sessão/Lakebase</strong> (0 tokens, ~5ms) → <strong style="color: #FFFFFF;">Embeddings cosine similarity</strong> (~200ms) → <strong style="color: #FFFFFF;">LLM Fallback Llama 3.3 70B</strong> (~800ms).
+                  </p>
+                  <p style="margin: 10px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.5;">
+                    Resultado: <span style="color: #FFA628;">2× mais barato</span> e <span style="color: #FF3621;">4× mais rápido</span> que roteamento puro via LLM. 💰
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Phase 4 -->
+        <tr>
+          <td style="padding: 12px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #E25A1C; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">04</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Agentes, RAG e Resiliência</p>
+                  <p style="margin: 6px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    Padrão <strong style="color: #FFFFFF;">Supervisor + Handoffs</strong> com OpenAI Agents SDK. RAG com Vector Search. Os três padrões de produção: <strong style="color: #FFFFFF;">Semaphore, Timeout 90s e Circuit Breaker.</strong> O usuário <strong style="color: #FFA628;">nunca fica sem resposta.</strong> 💪
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Phase 5 -->
+        <tr>
+          <td style="padding: 12px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 10px;">
+              <tr>
+                <td width="80" valign="top" style="padding: 22px 0 22px 22px;">
+                  <p style="margin: 0; color: #C41E0F; font-family: 'Urbanist', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">05</p>
+                </td>
+                <td valign="top" style="padding: 22px 22px 22px 8px;">
+                  <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4;">Cache, Deploy e Extensibilidade</p>
+                  <p style="margin: 6px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 14px; line-height: 1.55;">
+                    Cache + FIFO Queue sobre Lakebase pra superar o limite de 5 req/min da Genie API (<strong style="color: #FFA628;">1.625× de melhoria medida!</strong>). Deploy em um comando via Databricks Apps. Checklist de 6 passos pra adicionar <strong style="color: #FFFFFF;">domínio novo (~3 dias)</strong> ou <strong style="color: #FFFFFF;">canal novo (30-50 linhas).</strong>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Takeaway -->
+        <tr>
+          <td style="padding: 44px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #1B3139; border-radius: 12px; overflow: hidden;">
+              <tr>
+                <td style="height: 4px; background: linear-gradient(to right, #FFA628, #FF6028, #FF3621, #E25A1C); line-height: 4px; font-size: 0;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="padding: 28px 26px 26px;">
+                  <p style="margin: 0; color: #FFA628; font-family: 'Urbanist', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+                    🏠 O que você leva pra casa
+                  </p>
+                  <p style="margin: 16px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+                    Um padrão de <strong style="color: #FFA628; font-weight: 700;">AI Engineering</strong> que trata roteamento, agentes, dados e resiliência como <strong style="color: #FFFFFF;">uma arquitetura coesa</strong> — não quatro projetos separados colados com <code style="background: #0B1419; padding: 2px 6px; border-radius: 3px; font-family: ui-monospace, monospace; font-size: 13px; color: #FFA628;">if/else</code>.
+                  </p>
+                  <p style="margin: 14px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+                    Se você quer parar de ver "agente" como <strong style="color: #FFFFFF;">GPT enrolado em prompt</strong> e começar a desenhar como <strong style="color: #FF3621; font-weight: 700;">engenheiro</strong>, esse é o workshop. 🚀
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Date reminder -->
+        <tr>
+          <td style="padding: 36px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.5;">
+              📅 Sábado, 16/05.
+            </p>
+            <p style="margin: 8px 0 0 0; color: #B8C5CC; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.6;">
+              A gente se vê lá. 👇🏿
+            </p>
+          </td>
+        </tr>
+
+        <!-- CTA button -->
+        <tr>
+          <td align="center" style="padding: 28px 0 0 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td style="background: linear-gradient(to right, #FFA628, #FF6028, #FF3621, #E25A1C); border-radius: 999px;">
+                  <a href="https://engenhariadedadosacademy.curseduca.pro/login" style="display: inline-block; padding: 16px 38px; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.5px; text-decoration: none; text-transform: uppercase;">
+                    Acessar a plataforma →
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Sign off -->
+        <tr>
+          <td style="padding: 40px 0 0 0;">
+            <p style="margin: 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.55;">
+              Até lá! 🙌🏿
+            </p>
+            <p style="margin: 4px 0 0 0; color: #FFFFFF; font-family: 'Urbanist', sans-serif; font-size: 16px; line-height: 1.55; font-weight: 700;">
+              Time Engenharia de Dados Academy
+            </p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding: 48px 0 0 0; border-top: 1px solid #1B3139;">
+            <p style="margin: 24px 0 0 0; color: #6B7A85; font-family: 'Urbanist', sans-serif; font-size: 11px; line-height: 1.6; text-align: center;">
+              Você recebeu este e-mail porque é aluno ou inscrito da Formação Spark &amp; Databricks.<br>
+              Engenharia de Dados Academy · São Paulo, BR<br>
+              <a href="{{unsubscribe_url}}" style="color: #6B7A85; text-decoration: underline;">Descadastrar</a> · <a href="#" style="color: #6B7A85; text-decoration: underline;">Política de privacidade</a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

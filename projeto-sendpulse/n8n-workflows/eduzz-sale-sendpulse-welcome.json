@@ -1,0 +1,165 @@
+{
+  "name": "eduzz-sale-sendpulse-welcome",
+  "active": true,
+  "nodes": [
+    {
+      "id": "webhook-eduzz",
+      "name": "Webhook Eduzz Sale",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-336, -112],
+      "parameters": { "httpMethod": "POST", "path": "eduzz-sale", "options": {} },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "if-paid",
+      "name": "IF Status Paid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [-64, -112],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 3 },
+          "conditions": [
+            { "id": "condition-paid", "leftValue": "={{ $json.body.data.status }}", "rightValue": "paid", "operator": { "type": "string", "operation": "equals" } },
+            { "id": "condition-pago", "leftValue": "={{ $json.body.data.status }}", "rightValue": "pago", "operator": { "type": "string", "operation": "equals" } }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "set-buyer-data",
+      "name": "Set Buyer Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [288, -128],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "assign-name", "name": "buyer_name", "value": "={{ $json.body.data.buyer.name }}", "type": "string" },
+            { "id": "assign-email", "name": "buyer_email", "value": "={{ $json.body.data.buyer.email }}", "type": "string" },
+            { "id": "assign-product", "name": "product_name", "value": "={{ $json.body.data.items[0].name }}", "type": "string" },
+            { "id": "assign-product-id", "name": "product_id", "value": "={{ $json.body.data.items[0].productId }}", "type": "number" },
+            { "id": "assign-sale-date", "name": "sale_date", "value": "={{ $json.body.data.paidAt }}", "type": "string" },
+            { "id": "assign-amount", "name": "sale_amount", "value": "={{ $json.body.data.paid.value }}", "type": "number" },
+            { "id": "assign-cellphone", "name": "buyer_cellphone", "value": "={{ $json.body.data.buyer.cellphone }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "rpc-get-lists",
+      "name": "Get Target Lists (RPC)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [576, 80],
+      "parameters": {
+        "method": "POST",
+        "url": "https://nvqlfhcojmcxzmkpytnw.supabase.co/rest/v1/rpc/get_sendpulse_lists_for_product",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "Content-Type", "value": "application/json" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ p_product_name: $json.product_name }) }}",
+        "options": {}
+      },
+      "credentials": { "httpHeaderAuth": { "name": "supabase-data-analytics-brain-anon" } },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "if-has-active",
+      "name": "IF Has Active List",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [832, 80],
+      "parameters": {
+        "conditions": {
+          "options": { "version": 3, "leftValue": "", "caseSensitive": true, "typeValidation": "loose" },
+          "conditions": [{ "id": "check-active", "leftValue": "={{ $json.active_list_id }}", "rightValue": "", "operator": { "type": "string", "operation": "notEmpty", "singleValue": true } }],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "http-add-to-active",
+      "name": "Add Email to Active List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1088, 0],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.sendpulse.com/addressbooks/{{ $json.active_list_id }}/emails",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "sendPulseApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ emails: [{ email: $('Set Buyer Data').item.json.buyer_email, variables: { name: $('Set Buyer Data').item.json.buyer_name, phone: $('Set Buyer Data').item.json.buyer_cellphone, data_ultima_compra: $('Set Buyer Data').item.json.sale_date ? new Date($('Set Buyer Data').item.json.sale_date).toISOString().slice(0,10) : new Date().toISOString().slice(0,10), vigencia_expira_em: $json.retention_days ? new Date(new Date($('Set Buyer Data').item.json.sale_date || Date.now()).getTime() + $json.retention_days * 86400000).toISOString().slice(0,10) : '' } }] }) }}",
+        "options": {}
+      },
+      "credentials": {
+        "sendPulseOAuth2Api": { "name": "sendpulse-oauth2-api-agenda" },
+        "sendPulseApi": { "name": "sendpulse-api-agenda" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "if-has-ex-alunos",
+      "name": "IF Has Ex-Alunos List",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1344, 0],
+      "parameters": {
+        "conditions": {
+          "options": { "version": 3, "leftValue": "", "caseSensitive": true, "typeValidation": "loose" },
+          "conditions": [{ "id": "check-ex", "leftValue": "={{ $('Get Target Lists (RPC)').item.json.ex_alunos_list_id }}", "rightValue": "", "operator": { "type": "string", "operation": "notEmpty", "singleValue": true } }],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "http-remove-from-ex",
+      "name": "Remove from Ex-Alunos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1616, -16],
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://api.sendpulse.com/addressbooks/{{ $('Get Target Lists (RPC)').item.json.ex_alunos_list_id }}/emails",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "sendPulseApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ emails: [$('Set Buyer Data').item.json.buyer_email] }) }}",
+        "options": {}
+      },
+      "credentials": {
+        "sendPulseOAuth2Api": { "name": "sendpulse-oauth2-api-agenda" },
+        "sendPulseApi": { "name": "sendpulse-api-agenda" }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Webhook Eduzz Sale": { "main": [[{ "node": "IF Status Paid", "type": "main", "index": 0 }]] },
+    "IF Status Paid": { "main": [[{ "node": "Set Buyer Data", "type": "main", "index": 0 }]] },
+    "Set Buyer Data": { "main": [[{ "node": "Get Target Lists (RPC)", "type": "main", "index": 0 }]] },
+    "Get Target Lists (RPC)": { "main": [[{ "node": "IF Has Active List", "type": "main", "index": 0 }]] },
+    "IF Has Active List": { "main": [[{ "node": "Add Email to Active List", "type": "main", "index": 0 }]] },
+    "Add Email to Active List": { "main": [[{ "node": "IF Has Ex-Alunos List", "type": "main", "index": 0 }]] },
+    "IF Has Ex-Alunos List": { "main": [[{ "node": "Remove from Ex-Alunos", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}
